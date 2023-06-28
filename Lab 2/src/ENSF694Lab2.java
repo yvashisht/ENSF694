@@ -11,10 +11,7 @@ public class ENSF694Lab2 {
   }
 	  
 	  public static int interpolationSearch(int array[], int key) {
-		  
-		  Arrays.sort(array);
-		  
-		  
+		   
 		  int low = 0;
 		  int high = array.length -1;
 		  
@@ -34,6 +31,14 @@ public class ENSF694Lab2 {
 		  }
 		  return -1;
 	  }
+	  
+	  public static int fasterLinearSearch(int[] array, int key) {
+		  
+		  	for (int i = 0; i < array.length; i++) {
+		  		if (array[i] == key)
+		  			return i;
+	  	} return -1;
+}
 	
 	public static void main(String[] args) {
 	
@@ -51,6 +56,8 @@ public class ENSF694Lab2 {
 		  }
 	  
 	  System.out.println("Enter search key: ");
+	  
+	  Arrays.sort(array);
 	  
 	  int Key = Integer.valueOf(scanner.nextLine());
 	  
@@ -78,11 +85,17 @@ public class ENSF694Lab2 {
 	  } else {
 		  System.out.println("Search key NOT FOUND");	  
 	  } System.out.println("Interpolation Search Execution Time: " + interpolationExecutionTime + " nanoseconds");
+	  
+	  long linearFastStartTime = System.nanoTime();
+	  int linearFastResult = fasterLinearSearch(array, Key);
+	  long linearFastEndTime = System.nanoTime();
+      long linearFastExecutionTime = linearFastEndTime - linearFastStartTime;
+      
+      if (linearFastResult != -1) {
+		  System.out.println("Using Linear Search with initial sort: ");
+		  System.out.println("Search key FOUND at index " + linearFastResult + ".");
+	  } else {
+		  System.out.println("Search key NOT FOUND");
+	  } System.out.println("Linear Search Execution Time: " + linearFastExecutionTime + " nanoseconds");    
 	}
 }
-
-// 2. Compare their running times and show them. Which one performed better and why?
-// The linear method performed better than the interpolation method
-
-// 3.Try to improve the running time of the linear search by at least 20% and explain your logic.
-// To improve the run time a sort method is applied to the inputed array. This allows for a faster "shifting" through of the data.
